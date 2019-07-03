@@ -1,0 +1,42 @@
+doctype html
+html(lang='es')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0')
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous")
+        link(rel="stylesheet", href="css/styles.css")
+    body
+        main#main.main
+            #all-users.all-users
+                .top-bar
+                    h1.top-bar__title All Users
+                #content.content
+                    .content__header
+                        -const headers = ['name', 'surname', 'email', 'options']
+                        each header in headers
+                            p.content__text.content__text--header= header
+
+                    .content__users
+                    -const users = allUsers
+                        each user in users
+                            div(data-id= user.id).content__user
+                                p.content__text= user.name
+                                p.content__text= user.surname
+                                p.content__text= user.email
+                                button.button.button--edit Edit
+                                    i.fas.fa-pen
+                                a(href=`/delete-user/${user.id}`).button.button--delete Delete
+                                    i.fas.fa-trash
+            #user-info.user-info
+                .top-bar
+                    h1#user-info-title.top-bar__title New User
+                form(action="/add-user" method="POST")#user-info-form.content__user.content__user--user-info
+                    label Name
+                        input(type="text" name="name")#user-info-name.content__text
+                    label Surname
+                        input(type="text" name="surname")#user-info-surname.content__text
+                    label Email
+                        input(type="text" name="email")#user-info-email.content__text
+                    button#user-info-button.button.button--edit Add User
+                    button.button.button--cancel Cancel
+            script(src="js/scripts-min.js")
